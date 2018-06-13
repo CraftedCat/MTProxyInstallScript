@@ -7,6 +7,6 @@ You own MTProto Proxy for five steps!
 2. Wait one hour
 2. Login SSH with **root** (e.g. PUTTY)
 3. `touch mtproxy_install_script.sh && nano mtproxy_install_script.sh`
-4. Copy && Paste from here https://raw.githubusercontent.com/SatoshiNakamotoOfficial/MTProxyInstallScript/master/mtproxy_install_script.sh
+4. [Copy && Paste from here ](https://raw.githubusercontent.com/SatoshiNakamotoOfficial/MTProxyInstallScript/master/mtproxy_install_script.sh)
 5. `chmod +x mtproxy_install_script.sh && ./mtproxy_install_script.sh`
 
