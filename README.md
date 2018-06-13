@@ -10,3 +10,4 @@ You own MTProto Proxy for five steps!
 4. [Copy && Paste from here ](https://raw.githubusercontent.com/SatoshiNakamotoOfficial/MTProxyInstallScript/master/mtproxy_install_script.sh)
 5. `chmod +x mtproxy_install_script.sh && ./mtproxy_install_script.sh`
 
+P.S. Publish your proxy in https://t.me/MTProtoProxiesFree via @MTPP2Bot
