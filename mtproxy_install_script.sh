@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 export DIR="/opt"
 BOLD='\033[1m'       #  ${BOLD}
 LGREEN='\033[1;32m'     #  ${LGREEN}
