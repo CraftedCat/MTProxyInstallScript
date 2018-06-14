@@ -1,5 +1,6 @@
 #!/bin/bash
 export DIR="/opt"
+export CronFile="/etc/cron.daily/mtproxy-multi"
 BOLD='\033[1m'       #  ${BOLD}
 LGREEN='\033[1;32m'     #  ${LGREEN}
 LBLUE='\033[1;34m'     #  ${LBLUE}
@@ -18,7 +19,7 @@ echo -en "Send ${LGREEN}host:port(443)${BREAK}, and this secret in hex: ${LGREEN
 echo "Copy proxy tag and write me:" 
 read tag
 echo -en "Received tag: ${BGGRAY}${LBLUE}${tag}\n${BREAK}"
-echo -en "${BOLD}Making startup script...${BREAK}\n\n"
+echo -en "${BOLD}Making startup script...${BREAK}\n"
 touch /etc/systemd/system/mtproxy.service
 echo "[Unit]
 Description=MTProxy
@@ -35,6 +36,12 @@ OOMScoreAdjust=-100
 
 [Install]
 WantedBy=multi-user.target" > /etc/systemd/system/mtproxy.service
+echo -en "${BOLD}Making Cron script...${BREAK}\n\n"
+touch ${CronFile} && chmod +x ${CronFile}
+echo "#!/bin/bash
+
+curl -s https://core.telegram.org/getProxyConfig -o ${DIR}/proxy-multi.conf
+" > ${CronFile}
 systemctl enable mtproxy && systemctl start mtproxy
 echo -e  "===================================\n"
 echo -en "${LGREEN}Install Complete!${BREAK}\n"
