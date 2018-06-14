@@ -20,7 +20,7 @@ echo "Copy proxy tag and write me:"
 read tag
 echo -en "Received tag: ${BGGRAY}${LBLUE}${tag}\n${BREAK}"
 echo -en "${BOLD}Making startup script...${BREAK}\n\n"
-touch /etc/systemd/system/mtproxy2.service
+touch /etc/systemd/system/mtproxy.service
 echo "[Unit]
 Description=MTProxy
 After=network.target
