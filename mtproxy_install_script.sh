@@ -7,9 +7,7 @@ BGGREEN='\033[42m'     #  ${BGGREEN}
 BGGRAY='\033[47m'     #  ${BGGRAY}
 BREAK='\033[m'       #  ${BREAK}
 clear
-echo -e "\n"
-echo -en "${BOLD} Script install required packages, MTProto Proxy, startup script${BREAK}\n"
-echo -e "\n"
+echo -en "\n${BOLD} Script install required packages, MTProto Proxy, startup script${BREAK}\n\n"
 apt-get update && apt-get install htop curl git build-essential openssl libssl-dev zlib1g-dev -y
 cd $DIR && git clone https://github.com/TelegramMessenger/MTProxy.git && cd MTProxy && make
 cd $DIR/MTProxy/objs/bin && curl -s https://core.telegram.org/getProxySecret -o proxy-secret && curl -s https://core.telegram.org/getProxyConfig -o proxy-multi.conf
