@@ -8,4 +8,5 @@ Do you want your own MTProxy for 1 euro per month? Easily, only 3 steps!
 `wget https://raw.githubusercontent.com/CraftedCat/MTProxyInstallScript/master/mtpis.sh && chmod +x mtpis.sh && ./mtpis.sh`
 
 P.S. Please! Publish your proxy in https://t.me/MTProtoProxiesFree via @MTPP2Bot. It's Free!
+
 P.S.S. Please! Share this script for others!
