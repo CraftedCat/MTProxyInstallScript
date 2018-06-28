@@ -4,6 +4,13 @@ export CronFile="/etc/cron.daily/mtproxy-multi"
 DEB_PACKAGE_NAME="htop curl git build-essential openssl libssl-dev zlib1g-dev"
 YUM_PACKAGE_NAME="htop curl git openssl-devel zlib-devel"
 YUM_PACKAGE_GROUP_NAME="Development Tools"
+BOLD='\033[1m'       #  ${BOLD}
+LGREEN='\033[1;32m'     #  ${LGREEN}
+LBLUE='\033[1;34m'     #  ${LBLUE}
+BGGREEN='\033[42m'     #  ${BGGREEN}
+BGGRAY='\033[47m'     #  ${BGGRAY}
+BREAK='\033[m'       #  ${BREAK}
+
 if cat /etc/*release | grep ^NAME | grep CentOS; then
     echo "==============================================="
     echo "Installing packages $YUM_PACKAGE_NAME on CentOS"
@@ -51,14 +58,8 @@ if cat /etc/*release | grep ^NAME | grep CentOS; then
     exit 1;
  fi
 
-
 clear
-BOLD='\033[1m'       #  ${BOLD}
-LGREEN='\033[1;32m'     #  ${LGREEN}
-LBLUE='\033[1;34m'     #  ${LBLUE}
-BGGREEN='\033[42m'     #  ${BGGREEN}
-BGGRAY='\033[47m'     #  ${BGGRAY}
-BREAK='\033[m'       #  ${BREAK}
+
 echo -en "\n${BOLD} Script install required packages, MTProto Proxy, startup script${BREAK}\n\n"
 cd $DIR && git clone https://github.com/TelegramMessenger/MTProxy.git && cd MTProxy && make
 cd $DIR/MTProxy/objs/bin && curl -s https://core.telegram.org/getProxySecret -o proxy-secret && curl -s https://core.telegram.org/getProxyConfig -o proxy-multi.conf
