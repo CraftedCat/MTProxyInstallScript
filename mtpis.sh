@@ -89,7 +89,7 @@ WantedBy=multi-user.target" > /etc/systemd/system/mtproxy.service
 echo -en "${BOLD}Making Cron script...${BREAK}\n\n"
 touch ${CronFile} && chmod +x ${CronFile}
 echo "#!/bin/bash
-
+curl -s https://core.telegram.org/getProxySecret -o ${DIR}/proxy-secret
 curl -s https://core.telegram.org/getProxyConfig -o ${DIR}/proxy-multi.conf
 " > ${CronFile}
 systemctl enable mtproxy && systemctl start mtproxy
