@@ -1,5 +1,6 @@
 #!/bin/bash
 export DIR="/opt"
+export BINDIR="/opt/MTProxy/objs/bin"
 export CronFile="/etc/cron.daily/mtproxy-multi"
 DEB_PACKAGE_NAME="htop curl git build-essential openssl libssl-dev zlib1g-dev"
 YUM_PACKAGE_NAME="htop curl git openssl-devel zlib-devel"
@@ -86,8 +87,8 @@ Description=MTProxy
 After=network.target
 
 [Service]
-WorkingDirectory=${DIR}/MTProxy/objs/bin
-ExecStart=${DIR}/MTProxy/objs/bin/mtproto-proxy -u nobody -p 8888 -H 443 -S ${secret} -P ${tag} --aes-pwd proxy-secret proxy-multi.conf
+WorkingDirectory=${BINDIR}
+ExecStart=${BINDIR}/mtproto-proxy -u nobody -p 8888 -H 443 -S ${secret} -P ${tag} --aes-pwd proxy-secret proxy-multi.conf
 Restart=on-failure
 StandardOutput=syslog
 StandardError=syslog
@@ -99,8 +100,8 @@ WantedBy=multi-user.target" > /etc/systemd/system/mtproxy.service
 echo -en "${BOLD}Making Cron script...${BREAK}\n\n"
 touch ${CronFile} && chmod +x ${CronFile}
 echo "#!/bin/bash
-curl -s https://core.telegram.org/getProxySecret -o ${DIR}/proxy-secret
-curl -s https://core.telegram.org/getProxyConfig -o ${DIR}/proxy-multi.conf
+curl -s https://core.telegram.org/getProxySecret -o ${BINDIR}/proxy-secret
+curl -s https://core.telegram.org/getProxyConfig -o ${BINDIR}/proxy-multi.conf
 " > ${CronFile}
 systemctl enable mtproxy && systemctl start mtproxy
 echo -e  "===================================\n"
