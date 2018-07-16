@@ -64,7 +64,17 @@ cd $DIR && git clone https://github.com/TelegramMessenger/MTProxy.git && cd MTPr
 cd $DIR/MTProxy/objs/bin && curl -s https://core.telegram.org/getProxySecret -o proxy-secret && curl -s https://core.telegram.org/getProxyConfig -o proxy-multi.conf
 secret=$(head -c 16 /dev/urandom | xxd -ps)
 echo -en "Go to Telegram bot ${LGREEN}@MTProxybot${BREAK}, send command ${LGREEN}/newproxy${BREAK}\n"
-IP=$(wget -qO- eth0.me)
+IP=$(wget --timeout=1 --tries=1 -qO- ipinfo.io/ip)
+if [[ "${IP}" = "" ]]; then
+    IP=$(wget --timeout=1 --tries=1 -qO- ipecho.net/plain)
+fi
+if [[ "${IP}" = "" ]]; then
+    IP=$(wget --timeout=1 --tries=1 -qO- icanhazip.com)
+fi
+if [[ "${IP}" = "" ]]; then
+    IP=$(wget --timeout=1 --tries=1 -qO- ident.me)
+fi
+
 echo -en "Send ${LGREEN}${IP}:443${BREAK} after answer, send secret in hex: ${LGREEN}${secret}${BREAK}\n"
 echo -en "Copy proxy ${LGREEN}TAG${BREAK} and write me:" 
 read tag
