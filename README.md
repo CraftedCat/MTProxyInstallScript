@@ -9,7 +9,7 @@ Do you want your own MTProxy for 1 euro per month? Easily, only 3 steps!
 
 P.S. Please! Publish your proxy in [MTPP 2.0](https://t.me/MTProtoProxiesFree) via [@MTPP2Bot](https://t.me/MTPP2Bot). It's Free!
 
-P.S.S. Please! Share this script for others!
+P.S.S.**For Update**:`wget https://raw.githubusercontent.com/CraftedCat/MTProxyInstallScript/master/mtpup.sh && chmod +x mtpup.sh && ./mtpup.sh`
 
 
 # اسکریپت نصاب ام-تی-پروتو پراکسی
