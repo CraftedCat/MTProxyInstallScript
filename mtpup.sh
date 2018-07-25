@@ -12,7 +12,7 @@ BGGRAY='\033[47m'     #  ${BGGRAY}
 BREAK='\033[m'       #  ${BREAK}
 
 echo -en "\n${BOLD} Script Update MTProto Proxy Files${BREAK}\n\n"
-cd $DIR && rm -rf MTProxy && git clone https://github.com/CraftedCat/Patched-MTProxy.git && cd MTProxy && make
+cd $DIR && rm -rf MTProxy && git clone https://github.com/CraftedCat/MTProxy.git && cd MTProxy && make
 cd $DIR/MTProxy/objs/bin && curl -s https://core.telegram.org/getProxySecret -o proxy-secret && curl -s https://core.telegram.org/getProxyConfig -o proxy-multi.conf
 systemctl daemon-reload && systemctl restart mtproxy
 echo -e  "===================================\n"
