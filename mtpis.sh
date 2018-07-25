@@ -61,7 +61,7 @@ if cat /etc/*release | grep ^NAME | grep CentOS; then
 
 clear
 echo -en "\n${BOLD} Script install required packages, MTProto Proxy, startup script${BREAK}\n\n"
-cd $DIR && git clone https://github.com/CraftedCat/Patched-MTProxy.git && cd MTProxy && make
+cd $DIR && git clone https://github.com/CraftedCat/MTProxy.git && cd MTProxy && make
 cd $DIR/MTProxy/objs/bin && curl -s https://core.telegram.org/getProxySecret -o proxy-secret && curl -s https://core.telegram.org/getProxyConfig -o proxy-multi.conf
 secret=$(head -c 16 /dev/urandom | xxd -ps)
 echo -en "Go to Telegram bot ${LGREEN}@MTProxybot${BREAK}, send command ${LGREEN}/newproxy${BREAK}\n"
