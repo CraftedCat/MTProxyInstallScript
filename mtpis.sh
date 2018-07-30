@@ -71,6 +71,7 @@ read -p "Set up PORT for proxy: " -e -i 443 PORT
 #Check PORT via regex
 if ! [[ $PORT =~ $regex ]] ; then
    echo "$(tput setaf 1)Error:$(tput sgr 0) PORT invalid"
+   exit 1
 fi
 #Check PORT limits
 if [ $PORT -gt 65535 ] ; then
