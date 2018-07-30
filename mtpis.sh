@@ -11,6 +11,7 @@ LBLUE='\033[1;34m'     #  ${LBLUE}
 BGGREEN='\033[42m'     #  ${BGGREEN}
 BGGRAY='\033[47m'     #  ${BGGRAY}
 BREAK='\033[m'       #  ${BREAK}
+regex='^[0-9]+$'
 
 if cat /etc/*release | grep ^NAME | grep CentOS; then
     echo "==============================================="
@@ -64,7 +65,19 @@ echo -en "\n${BOLD} Script install required packages, MTProto Proxy, startup scr
 cd $DIR && git clone https://github.com/CraftedCat/MTProxy.git && cd MTProxy && make
 cd $DIR/MTProxy/objs/bin && curl -s https://core.telegram.org/getProxySecret -o proxy-secret && curl -s https://core.telegram.org/getProxyConfig -o proxy-multi.conf
 secret=$(head -c 16 /dev/urandom | xxd -ps)
-echo -en "Go to Telegram bot ${LGREEN}@MTProxybot${BREAK}, send command ${LGREEN}/newproxy${BREAK}\n"
+
+#Set up proxy port
+read -p "Set up PORT for proxy: " -e -i 443 PORT
+#Check PORT via regex
+if ! [[ $PORT =~ $regex ]] ; then
+   echo "$(tput setaf 1)Error:$(tput sgr 0) PORT invalid"
+fi
+#Check PORT limits
+if [ $PORT -gt 65535 ] ; then
+	echo "$(tput setaf 1)Error:$(tput sgr 0): PORT must be less than 65536"
+	exit 1
+fi
+#Obtain proxy IP
 IP=$(wget --timeout=1 --tries=1 -qO- ipinfo.io/ip)
 if [[ "${IP}" = "" ]]; then
     IP=$(wget --timeout=1 --tries=1 -qO- ipecho.net/plain)
@@ -76,7 +89,9 @@ if [[ "${IP}" = "" ]]; then
     IP=$(wget --timeout=1 --tries=1 -qO- ident.me)
 fi
 
-echo -en "Send ${LGREEN}${IP}:443${BREAK} after answer, send secret in hex: ${LGREEN}${secret}${BREAK}\n"
+#Dialog
+echo -en "Go to Telegram bot ${LGREEN}@MTProxybot${BREAK}, send command ${LGREEN}/newproxy${BREAK}\n"
+echo -en "Send ${LGREEN}${IP}:${PORT}${BREAK} after answer, send secret in hex: ${LGREEN}${secret}${BREAK}\n"
 echo -en "Copy proxy ${LGREEN}TAG${BREAK} and write me:" 
 read tag
 echo -en "Received tag: ${BGGRAY}${LBLUE}${tag}\n${BREAK}"
