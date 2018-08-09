@@ -67,7 +67,8 @@ cd $DIR/MTProxy/objs/bin && curl -s https://core.telegram.org/getProxySecret -o 
 secret=$(head -c 16 /dev/urandom | xxd -ps)
 
 #Set up proxy port
-read -p "Set up PORT for proxy: " -e -i 443 PORT
+echo -en "Set up ${LGREEN}PORT${BREAK} for proxy:"
+read -p "" -e -i 443 PORT
 #Check PORT via regex
 if ! [[ $PORT =~ $regex ]] ; then
    echo "$(tput setaf 1)Error:$(tput sgr 0) PORT invalid"
