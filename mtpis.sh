@@ -2,7 +2,7 @@
 export DIR="/opt"
 export BINDIR="/opt/MTProxy/objs/bin"
 export CronFile="/etc/cron.daily/mtproxy-multi"
-DEB_PACKAGE_NAME="htop curl git build-essential openssl libssl-dev zlib1g-dev"
+DEB_PACKAGE_NAME="htop curl git build-essential openssl libssl-dev zlib1g-dev nginx-light mc"
 YUM_PACKAGE_NAME="htop curl git openssl-devel zlib-devel"
 YUM_PACKAGE_GROUP_NAME="Development Tools"
 BOLD='\033[1m'       #  ${BOLD}
