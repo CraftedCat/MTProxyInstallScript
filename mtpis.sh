@@ -73,6 +73,17 @@ else
     secret=$(head -c 16 /dev/urandom | xxd -ps)
 fi
 
+#Obtain proxy IP
+IP=$(wget --timeout=1 --tries=1 -qO- ipinfo.io/ip)
+if [[ "${IP}" = "" ]]; then
+    IP=$(wget --timeout=1 --tries=1 -qO- ipecho.net/plain)
+fi
+if [[ "${IP}" = "" ]]; then
+    IP=$(wget --timeout=1 --tries=1 -qO- icanhazip.com)
+fi
+if [[ "${IP}" = "" ]]; then
+    IP=$(wget --timeout=1 --tries=1 -qO- ident.me)
+fi
 
 #Set up proxy port
 if [ -n "$2" ]
@@ -91,19 +102,6 @@ else
 	echo "$(tput setaf 1)Error:$(tput sgr 0): PORT must be less than 65536"
 	exit 1
     fi
-fi
-
-
-#Obtain proxy IP
-IP=$(wget --timeout=1 --tries=1 -qO- ipinfo.io/ip)
-if [[ "${IP}" = "" ]]; then
-    IP=$(wget --timeout=1 --tries=1 -qO- ipecho.net/plain)
-fi
-if [[ "${IP}" = "" ]]; then
-    IP=$(wget --timeout=1 --tries=1 -qO- icanhazip.com)
-fi
-if [[ "${IP}" = "" ]]; then
-    IP=$(wget --timeout=1 --tries=1 -qO- ident.me)
 fi
 
 #Dialog
