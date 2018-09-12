@@ -64,21 +64,36 @@ clear
 echo -en "\n${BOLD} Script install required packages, MTProto Proxy, startup script${BREAK}\n\n"
 cd $DIR && git clone https://github.com/CraftedCat/MTProxy.git && cd MTProxy && make
 cd $DIR/MTProxy/objs/bin && curl -s https://core.telegram.org/getProxySecret -o proxy-secret && curl -s https://core.telegram.org/getProxyConfig -o proxy-multi.conf
-secret=$(head -c 16 /dev/urandom | xxd -ps)
+
+#Generate SECRET
+if [ -n "$1" ]
+then
+    secret=$1
+else
+    secret=$(head -c 16 /dev/urandom | xxd -ps)
+fi
+
 
 #Set up proxy port
-echo -en "Set up ${LGREEN}PORT${BREAK} for proxy:"
-read -p "" -e -i 443 PORT
-#Check PORT via regex
-if ! [[ $PORT =~ $regex ]] ; then
-   echo "$(tput setaf 1)Error:$(tput sgr 0) PORT invalid"
-   exit 1
-fi
-#Check PORT limits
-if [ $PORT -gt 65535 ] ; then
+if [ -n "$2" ]
+then
+    PORT=$2
+else
+    echo -en "Set up ${LGREEN}PORT${BREAK} for proxy:"
+    read -p "" -e -i 443 PORT
+    #Check PORT via regex
+        if ! [[ $PORT =~ $regex ]] ; then
+            echo "$(tput setaf 1)Error:$(tput sgr 0) PORT invalid"
+            exit 1
+        fi
+    #Check PORT limits
+    if [ $PORT -gt 65535 ] ; then
 	echo "$(tput setaf 1)Error:$(tput sgr 0): PORT must be less than 65536"
 	exit 1
+    fi
 fi
+
+
 #Obtain proxy IP
 IP=$(wget --timeout=1 --tries=1 -qO- ipinfo.io/ip)
 if [[ "${IP}" = "" ]]; then
@@ -94,8 +109,14 @@ fi
 #Dialog
 echo -en "Go to Telegram bot ${LGREEN}@MTProxybot${BREAK}, send command ${LGREEN}/newproxy${BREAK}\n"
 echo -en "Send ${LGREEN}${IP}:${PORT}${BREAK} after answer, send secret in hex: ${LGREEN}${secret}${BREAK}\n"
-echo -en "Copy proxy ${LGREEN}TAG${BREAK} and write me:" 
-read tag
+#Receive TAG
+if [ -n "$3" ]
+then
+    tag=$3
+else
+    echo -en "Copy proxy ${LGREEN}TAG${BREAK} and write me:" 
+    read tag
+fi
 echo -en "Received tag: ${BGGRAY}${LBLUE}${tag}\n${BREAK}"
 echo -en "${BOLD}Making startup script...${BREAK}\n"
 touch /etc/systemd/system/mtproxy.service
