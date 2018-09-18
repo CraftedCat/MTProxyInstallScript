@@ -143,3 +143,14 @@ systemctl enable mtproxy && systemctl start mtproxy
 echo -e  "===================================\n"
 echo -en "${LGREEN}Install Complete!${BREAK}\n"
 echo -en "check status ${BOLD}systemctl status mtproxy${BREAK}\n"
+sysctl -w net.ipv4.conf.all.accept_redirects=0
+sysctl -w net.ipv4.conf.all.secure_redirects=0
+sysctl -w net.ipv4.conf.all.send_redirects=0
+sysctl -w net.ipv4.tcp_max_orphans=65536
+sysctl -w net.ipv4.tcp_orphan_retries=0
+sysctl -w net.ipv4.tcp_fin_timeout=10
+sysctl -w net.ipv4.tcp_keepalive_time=60
+sysctl -w net.ipv4.tcp_keepalive_intvl=15
+sysctl -w net.ipv4.tcp_keepalive_probes=5
+sysctl -w net.ipv4.ip_local_port_range="1024 65535"
+sysctl -w net.ipv4.tcp_tw_reuse=1
