@@ -142,6 +142,6 @@ curl -s https://core.telegram.org/getProxyConfig -o ${BINDIR}/proxy-multi.conf
 systemctl enable mtproxy && systemctl start mtproxy
 echo -e  "===================================\n"
 echo -en "${LGREEN}Install Complete!${BREAK}\n"
-echo -en "check status ${BOLD}systemctl status mtproxy${BREAK}\n"
-
+echo -en "Check status: ${BOLD}systemctl status mtproxy${BREAK}\n"
+echo -en "Proxy Link with Random Padding: ${BOLD}tg://proxy?server=${IP}&port=${PORT}&secret=dd${secret}${BREAK}"
 
