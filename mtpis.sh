@@ -133,6 +133,8 @@ else
 fi
 echo -en "Received tag: ${BGGRAY}${LBLUE}${tag}\n${BREAK}"
 echo -en "${BOLD}Making startup script...${BREAK}\n"
+
+if [[ "${OS}" != "CentOS6" ]]; then
 touch /etc/systemd/system/mtproxy.service
 echo "[Unit]
 Description=MTProxy
@@ -156,6 +158,12 @@ curl -s https://core.telegram.org/getProxySecret -o ${BINDIR}/proxy-secret
 curl -s https://core.telegram.org/getProxyConfig -o ${BINDIR}/proxy-multi.conf
 " > ${CronFile}
 systemctl enable mtproxy && systemctl start mtproxy
+else
+wget 
+chmod +x /etc/init.d/mtproxy
+/etc/init.d/mtproxy start
+fi
+
 echo -e  "===================================\n"
 echo -en "${LGREEN}Install Complete!${BREAK}\n"
 echo -en "Check status: ${BOLD}systemctl status mtproxy${BREAK}\n"
