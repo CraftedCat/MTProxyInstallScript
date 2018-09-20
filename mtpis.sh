@@ -171,7 +171,9 @@ fi
 
 echo -e  "===================================\n"
 echo -en "${LGREEN}Install Complete!${BREAK}\n"
+if [[ "${OS}" != "CentOS6" ]]; then
 echo -en "Check status: ${BOLD}systemctl status mtproxy${BREAK}\n"
+fi
 echo -en "Proxy Link with Random Padding: ${BOLD}tg://proxy?server=${IP}&port=${PORT}&secret=dd${secret}${BREAK}\n"
 
 
