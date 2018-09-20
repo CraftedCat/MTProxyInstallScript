@@ -164,6 +164,7 @@ echo "#!/bin/bash
 nohup ${BINDIR}/mtproto-proxy -u nobody -p 8888 -H ${PORT} -S ${secret} -P ${tag} --aes-pwd ${BINDIR}proxy-secret ${BINDIR}/proxy-multi.conf >> /var/log/messages &
 " > ${CENTOS6IS}
 chmod +x ${CENTOS6IS}
+service iptables restart
 iptables -I INPUT 5 -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
 service iptables save && chkconfig --add mtproxy && ${CENTOS6IS}
 fi
