@@ -159,9 +159,10 @@ curl -s https://core.telegram.org/getProxyConfig -o ${BINDIR}/proxy-multi.conf
 " > ${CronFile}
 systemctl enable mtproxy && systemctl start mtproxy
 else
-ST="DAEMONOPTS=\"-u nobody -p 8888 -H ${PORT} -S ${secret} -P ${tag} --aes-pwd proxy-secret proxy-multi.conf\""
-wget https://raw.githubusercontent.com/CraftedCat/MTProxyInstallScript/master/mtproxy_centos6 -O /etc/init.d/mtproxy && chmod +x /etc/init.d/mtproxy
-echo  ${ST} >> /etc/init.d/mtproxy
+
+echo "#!/bin/bash
+nohup {$BINDIR}/mtproto-proxy -u nobody -p 8888 -H ${PORT} -S ${secret} -P ${tag} --aes-pwd ${BINDIR}proxy-secret ${BINDIR}/proxy-multi.conf >> /var/log/messages &"
+chmod +x /etc/init.d/mtproxy
 iptables -I INPUT 5 -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
 service iptables save && chkconfig --add mtproxy && service mtproxy start
 fi
