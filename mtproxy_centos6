@@ -6,8 +6,8 @@
 
 DAEMON_PATH="/opt/MTProxy/objs/bin/"
 
-DAEMON=mtproxy
-DAEMONOPTS="mtproto-proxy -u nobody -p 8888 -H ${PORT} -S ${secret} -P ${tag} --aes-pwd proxy-secret proxy-multi.conf"
+DAEMON="./mtproto-proxy"
+
 
 NAME=mtproxy
 DESC="mtproxy"
@@ -18,7 +18,7 @@ case "$1" in
 start)
 	printf "%-50s" "Starting $NAME..."
 	cd $DAEMON_PATH
-	PID=`$DAEMON $DAEMONOPTS > /dev/null 2>&1 & echo $!`
+	PID=`$DAEMON $DAEMONOPTS > /var/log/messages 2>&1 & echo $!`
 	#echo "Saving PID" $PID " to " $PIDFILE
         if [ -z $PID ]; then
             printf "%s\n" "Fail"
