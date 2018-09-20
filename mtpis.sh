@@ -159,9 +159,7 @@ curl -s https://core.telegram.org/getProxyConfig -o ${BINDIR}/proxy-multi.conf
 " > ${CronFile}
 systemctl enable mtproxy && systemctl start mtproxy
 else
-wget https://raw.githubusercontent.com/CraftedCat/MTProxyInstallScript/master/mtproxy_centos6 -O /etc/init.d/mtproxy
-chmod +x /etc/init.d/mtproxy
-/etc/init.d/mtproxy start
+wget https://raw.githubusercontent.com/CraftedCat/MTProxyInstallScript/master/mtproxy_centos6 -O /etc/init.d/mtproxy && chmod +x /etc/init.d/mtproxy && /etc/init.d/mtproxy start
 fi
 
 echo -e  "===================================\n"
