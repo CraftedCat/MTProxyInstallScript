@@ -3,7 +3,7 @@ export DIR="/opt"
 export BINDIR="/opt/MTProxy/objs/bin"
 export CronFile="/etc/cron.daily/mtproxy-multi"
 DEB_PACKAGE_NAME="htop curl git build-essential openssl libssl-dev zlib1g-dev nginx-light mc"
-YUM_PACKAGE_NAME="htop curl git openssl-devel zlib-devel"
+YUM_PACKAGE_NAME="htop curl git openssl-devel zlib-devel vim-common"
 YUM_PACKAGE_GROUP_NAME="Development Tools"
 BOLD='\033[1m'       #  ${BOLD}
 LGREEN='\033[1;32m'     #  ${LGREEN}
@@ -29,6 +29,13 @@ if cat /etc/*release | grep ^NAME | grep CentOS; then
     echo "================================================"
     echo "Installing packages $YUM_PACKAGE_NAME on Fedorea"
     echo "================================================"
+    yum install -y $YUM_PACKAGE_NAME
+    yum groupinstall -y $YUM_PACKAGE_GROUP_NAME
+ elif cat /etc/*release | grep ^CentOS; then
+    echo "================================================"
+    echo "Installing packages $YUM_PACKAGE_NAME on Fedorea"
+    echo "================================================"
+    OS="CentOS6"
     yum install -y $YUM_PACKAGE_NAME
     yum groupinstall -y $YUM_PACKAGE_GROUP_NAME
  elif cat /etc/*release | grep ^NAME | grep Ubuntu; then
@@ -59,6 +66,15 @@ if cat /etc/*release | grep ^NAME | grep CentOS; then
     echo "OS NOT DETECTED, couldn't install package $PACKAGE"
     exit 1;
  fi
+
+clear
+if [[ "${OS}" = "CentOS6" ]]; then
+    wget http://people.centos.org/tru/devtools-2/devtools-2.repo -O /etc/yum.repos.d/devtools-2.repo
+    yum install devtoolset-2-gcc devtoolset-2-binutils devtoolset-2-gcc-c++ -y
+    export CC=/opt/rh/devtoolset-2/root/usr/bin/gcc  
+    export CPP=/opt/rh/devtoolset-2/root/usr/bin/cpp
+    export CXX=/opt/rh/devtoolset-2/root/root/usr/bin/c++
+fi
 
 clear
 echo -en "\n${BOLD} Script install required packages, MTProto Proxy, startup script${BREAK}\n\n"
