@@ -161,7 +161,7 @@ curl -s https://core.telegram.org/getProxyConfig -o ${BINDIR}/proxy-multi.conf
 systemctl enable mtproxy && systemctl start mtproxy
 else
 echo "#!/bin/bash
-nohup ${BINDIR}/mtproto-proxy -u nobody -p 8888 -H ${PORT} -S ${secret} -P ${tag} --aes-pwd ${BINDIR}proxy-secret ${BINDIR}/proxy-multi.conf >> /var/log/messages &
+nohup ${BINDIR}mtproto-proxy -u nobody -p 8888 -H ${PORT} -S ${secret} -P ${tag} --aes-pwd ${BINDIR}proxy-secret ${BINDIR}/proxy-multi.conf >> /var/log/messages &
 " > ${CENTOS6IS}
 chmod +x ${CENTOS6IS}
 service iptables restart
