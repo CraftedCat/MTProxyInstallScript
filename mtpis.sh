@@ -161,7 +161,7 @@ systemctl enable mtproxy && systemctl start mtproxy
 else
 wget https://raw.githubusercontent.com/CraftedCat/MTProxyInstallScript/master/mtproxy_centos6 -O /etc/init.d/mtproxy && chmod +x /etc/init.d/mtproxy && /etc/init.d/mtproxy start
 iptables -I INPUT 5 -m state --state NEW -m tcp -p tcp --dport ${PORT} -j ACCEPT
-service iptables save
+service iptables save && chkconfig --add mtproxy
 fi
 
 echo -e  "===================================\n"
