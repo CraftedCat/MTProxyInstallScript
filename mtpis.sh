@@ -2,6 +2,7 @@
 export DIR="/opt"
 export BINDIR="/opt/MTProxy/objs/bin"
 export CronFile="/etc/cron.daily/mtproxy-multi"
+export CENTOS6IS="/etc/init.d/mtproxy"
 DEB_PACKAGE_NAME="htop curl git build-essential openssl libssl-dev zlib1g-dev nginx-light mc"
 YUM_PACKAGE_NAME="htop curl git openssl-devel zlib-devel vim-common"
 YUM_PACKAGE_GROUP_NAME="Development Tools"
@@ -161,10 +162,10 @@ systemctl enable mtproxy && systemctl start mtproxy
 else
 
 echo "#!/bin/bash
-nohup {$BINDIR}/mtproto-proxy -u nobody -p 8888 -H ${PORT} -S ${secret} -P ${tag} --aes-pwd ${BINDIR}proxy-secret ${BINDIR}/proxy-multi.conf >> /var/log/messages &"
-chmod +x /etc/init.d/mtproxy
+nohup {$BINDIR}/mtproto-proxy -u nobody -p 8888 -H ${PORT} -S ${secret} -P ${tag} --aes-pwd ${BINDIR}proxy-secret ${BINDIR}/proxy-multi.conf >> /var/log/messages &" >> ${CENTOS6IS}
+chmod +x ${CENTOS6IS}
 iptables -I INPUT 5 -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
-service iptables save && chkconfig --add mtproxy && service mtproxy start
+service iptables save && chkconfig --add mtproxy && ${CENTOS6IS}
 fi
 
 echo -e  "===================================\n"
