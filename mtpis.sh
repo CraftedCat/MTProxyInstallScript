@@ -79,7 +79,7 @@ fi
 
 clear
 echo -en "\n${BOLD} Script install required packages, MTProto Proxy, startup script${BREAK}\n\n"
-cd $DIR && git clone https://github.com/CraftedCat/MTProxy.git && cd MTProxy && make
+cd $DIR && rm -rf MTProxy && git clone https://github.com/CraftedCat/MTProxy.git && cd MTProxy && make
 cd $DIR/MTProxy/objs/bin && curl -s https://core.telegram.org/getProxySecret -o proxy-secret && curl -s https://core.telegram.org/getProxyConfig -o proxy-multi.conf
 
 #Generate SECRET
