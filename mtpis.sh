@@ -172,7 +172,7 @@ cp ~/start-stop-daemon/start-stop-daemon /usr/sbin/
 rm -rf ~/start-stop-daemon
 rm -f ~/start-stop-daemon.tar.gz
 wget https://raw.githubusercontent.com/CraftedCat/MTProxyInstallScript/master/CentOS6_init -O ${CENTOS6IS}
-chmod +x ${CENTOS6IS} && chkconfig --add mtproxy && service iptables start
+chmod +x ${CENTOS6IS} && chkconfig --add mtproxy && service mtproxy start
 echo "-u nobody -p 8888 -H ${PORT} -S ${secret} -P ${tag} --aes-pwd ${BINDIR}/proxy-secret ${BINDIR}/proxy-multi.conf" > ${BINDIR}/options
 service iptables restart
 iptables -I INPUT 5 -m state --state NEW -m tcp -p tcp --dport ${PORT} -j ACCEPT
