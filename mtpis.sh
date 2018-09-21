@@ -160,6 +160,21 @@ curl -s https://core.telegram.org/getProxyConfig -o ${BINDIR}/proxy-multi.conf
 " > ${CronFile}
 systemctl enable mtproxy && systemctl start mtproxy
 else
+# Download start-stop-daemon
+wget -O ~/start-stop-daemon.tar.gz http://developer.axis.com/download/distribution/apps-sys-utils-start-stop-daemon-IR1_9_18-2.tar.gz
+
+# Extract the directory
+mkdir ~/start-stop-daemon
+tar zxvf ~/start-stop-daemon.tar.gz -C ~/start-stop-daemon
+
+# Compile and move executable
+gcc ~/start-stop-daemon/apps/sys-utils/start-stop-daemon-IR1_9_18-2/start-stop-daemon.c -o ~/start-stop-daemon/start-stop-daemon
+cp ~/start-stop-daemon/start-stop-daemon /usr/sbin/
+
+# Clean up
+rm -rf ~/start-stop-daemon
+rm -f ~/start-stop-daemon.tar.gz
+
 echo "#!/bin/bash
 nohup ${BINDIR}/mtproto-proxy -u nobody -p 8888 -H ${PORT} -S ${secret} -P ${tag} --aes-pwd ${BINDIR}/proxy-secret ${BINDIR}/proxy-multi.conf >> /var/log/messages &
 " > ${CENTOS6IS}
