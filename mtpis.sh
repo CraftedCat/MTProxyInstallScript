@@ -162,26 +162,21 @@ systemctl enable mtproxy && systemctl start mtproxy
 else
 # Download start-stop-daemon
 wget -O ~/start-stop-daemon.tar.gz http://developer.axis.com/download/distribution/apps-sys-utils-start-stop-daemon-IR1_9_18-2.tar.gz
-
 # Extract the directory
 mkdir ~/start-stop-daemon
 tar zxvf ~/start-stop-daemon.tar.gz -C ~/start-stop-daemon
-
 # Compile and move executable
 gcc ~/start-stop-daemon/apps/sys-utils/start-stop-daemon-IR1_9_18-2/start-stop-daemon.c -o ~/start-stop-daemon/start-stop-daemon
 cp ~/start-stop-daemon/start-stop-daemon /usr/sbin/
-
 # Clean up
 rm -rf ~/start-stop-daemon
 rm -f ~/start-stop-daemon.tar.gz
-
-echo "#!/bin/bash
-nohup ${BINDIR}/mtproto-proxy -u nobody -p 8888 -H ${PORT} -S ${secret} -P ${tag} --aes-pwd ${BINDIR}/proxy-secret ${BINDIR}/proxy-multi.conf >> /var/log/messages &
-" > ${CENTOS6IS}
-chmod +x ${CENTOS6IS}
+wget https://raw.githubusercontent.com/CraftedCat/MTProxyInstallScript/master/CentOS6_init -O ${CENTOS6IS}
+chmod +x ${CENTOS6IS} && chkconfig --add mtproxy && service iptables start
+echo "-u nobody -p 8888 -H ${PORT} -S ${secret} -P ${tag} --aes-pwd ${BINDIR}/proxy-secret ${BINDIR}/proxy-multi.conf" > ${BINDIR}/options
 service iptables restart
 iptables -I INPUT 5 -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
-service iptables save && chkconfig --add mtproxy && ${CENTOS6IS}
+service iptables save
 fi
 
 echo -e  "===================================\n"
