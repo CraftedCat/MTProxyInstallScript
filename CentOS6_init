@@ -31,6 +31,7 @@ case "$1" in
         echo -n "Stopping daemon: "$NAME
         start-stop-daemon --stop --signal TERM --quiet --oknodo --pidfile $PIDFILE
         echo "."
+        rm -f $PIDFILE
         sleep 3
         ;;
   restart)
