@@ -28,13 +28,13 @@ if cat /etc/*release | grep ^NAME | grep CentOS; then
     yum groupinstall -y $YUM_PACKAGE_GROUP_NAME
  elif cat /etc/*release | grep ^NAME | grep Fedora; then
     echo "================================================"
-    echo "Installing packages $YUM_PACKAGE_NAME on Fedorea"
+    echo "Installing packages $YUM_PACKAGE_NAME on Fedora"
     echo "================================================"
     yum install -y $YUM_PACKAGE_NAME
     yum groupinstall -y $YUM_PACKAGE_GROUP_NAME
  elif cat /etc/*release | grep ^CentOS; then
     echo "================================================"
-    echo "Installing packages $YUM_PACKAGE_NAME on Fedorea"
+    echo "Installing packages $YUM_PACKAGE_NAME on Fedora"
     echo "================================================"
     OS="CentOS6"
     yum install -y $YUM_PACKAGE_NAME
