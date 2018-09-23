@@ -176,7 +176,7 @@ chmod +x ${CENTOS6IS} && chkconfig --add mtproxy
 echo "-u nobody -p 8888 -H ${PORT} -S ${secret} -P ${tag} --aes-pwd ${BINDIR}/proxy-secret ${BINDIR}/proxy-multi.conf" > ${BINDIR}/options
 service mtproxy start
 service iptables restart
-iptables -I INPUT 1 -m state --state NEW -m tcp -p tcp --dport ${PORT} -j ACCEPT
+iptables -I INPUT 1 -m state --state NEW -m tcp -p tcp --dport $PORT -j ACCEPT
 service iptables save
 fi
 
