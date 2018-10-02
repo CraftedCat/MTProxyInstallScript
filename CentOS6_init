@@ -37,6 +37,7 @@ case "$1" in
   restart)
         echo -n "Restarting daemon: "$NAME
         start-stop-daemon --stop --signal TERM --quiet --oknodo --retry 30 --pidfile $PIDFILE
+        rm -f $PIDFILE
         start-stop-daemon --start --background --pidfile $PIDFILE -m --exec $DAEMON -- $DAEMON_OPTS
         echo "."
         ;;
