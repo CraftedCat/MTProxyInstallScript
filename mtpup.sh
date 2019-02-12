@@ -18,4 +18,4 @@ systemctl daemon-reload && systemctl restart mtproxy
 echo -e  "===================================\n"
 echo -en "${LGREEN}Update Complete!${BREAK}\n"
 echo -en "check status ${BOLD}systemctl status mtproxy${BREAK}\n"
-echo -en "In this version, you can add dd before hex secret! ${BOLD}dd+secret makes clients add random padding to some packets to make DPI detection of mtproxy harder${BREAK}\n"
+echo -en "In this version, you need add dd before hex secret! ${BOLD}dd+secret makes clients add random padding to some packets to make DPI detection of mtproxy harder${BREAK}\n"
