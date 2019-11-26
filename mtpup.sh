@@ -14,6 +14,8 @@ BREAK='\033[m'       #  ${BREAK}
 echo -en "\n${BOLD} Script Update MTProto Proxy Files${BREAK}\n\n"
 cd $DIR && rm -rf MTProxy && git clone https://github.com/TelegramMessenger/MTProxy && cd MTProxy && make
 cd $DIR/MTProxy/objs/bin && curl -s https://core.telegram.org/getProxySecret -o proxy-secret && curl -s https://core.telegram.org/getProxyConfig -o proxy-multi.conf
+echo -en "${BOLD}Iptables rules file...${BREAK}\n\n"
+echo "iptables -A INPUT -j ACCEPT -p tcp -m tcp --dport 6443" > ${BINDIR}/iptables.sh
 systemctl daemon-reload && systemctl restart mtproxy
 echo -e  "===================================\n"
 echo -en "${LGREEN}Update Complete!${BREAK}\n"
