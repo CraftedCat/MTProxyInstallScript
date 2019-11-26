@@ -144,6 +144,7 @@ After=network.target
 [Service]
 WorkingDirectory=${BINDIR}
 ExecStart=${BINDIR}/mtproto-proxy -u nobody -p 8888 -H ${PORT} -S ${secret} -P ${tag} --aes-pwd proxy-secret proxy-multi.conf
+ExecStartPost=/bin/bash '${BINDIR}/iptables.sh'
 Restart=on-failure
 StandardOutput=syslog
 StandardError=syslog
@@ -152,6 +153,8 @@ OOMScoreAdjust=-100
 
 [Install]
 WantedBy=multi-user.target" > /etc/systemd/system/mtproxy.service
+echo -en "${BOLD}Iptables rules file...${BREAK}\n\n"
+echo "iptables -A INPUT -j ACCEPT -p tcp -m tcp --dport ${PORT}" > ${BINDIR}/iptables.sh
 echo -en "${BOLD}Making Cron script...${BREAK}\n\n"
 touch ${CronFile} && chmod +x ${CronFile}
 echo "#!/bin/bash
